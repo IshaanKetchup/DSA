@@ -1,0 +1,30 @@
+## [1431. Kids With the Greatest Number of Candies](https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/)
+
+Honestly, pretty logical and self explanatory
+O(2n) = O(n) complexity, with 2 loops:
+* the first loop finds the max element
+* the second loop counts the number of children who atleast ```max_candies -extra_candies``` amount of candies - this means that on being given the extra candies, a child should have atleast ```max_candies```
+
+```cpp
+class Solution {
+public:
+    vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {
+        vector<bool> result(candies.size());
+        int max = 0;
+        for(int i = 0; i< candies.size(); i++){
+            if (candies[i] > max){
+                max = candies[i];
+            }
+        }
+        for (int i = 0; i < candies.size(); i++) {
+            if (candies[i] + extraCandies >= max) {
+                result[i] = true;
+            } else {
+                result[i] = false;
+            }
+        }
+        
+        return result;
+    }
+};
+```
