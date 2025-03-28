@@ -1,0 +1,33 @@
+## [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
+
+O(n) complexity - 2 pointer approach
+One pointer left (i) other right (j)
+Logic: area is given by height*base where 
+base: left to right (j-i) and height: min(height[i],height[j])
+We have to maximize area (maxvol, curr)
+move i forward when height[i] > height[j]
+move j backward when height[i]<height[j]
+do this while i<j
+calculate volume at each iteration, and find max volume
+
+
+```cpp
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int n = height.size();
+        int b,h,vol;
+        int maxvol = 0;
+        int i=0, j=n-1;
+        while(i<j){
+            int width = j-i;
+            int ht = min(height[i],height[j]);
+            int curr = width*ht;
+            maxvol = max(maxvol, curr);
+            if(height[i]<height[j]) i++;
+            else {j--;}
+        }
+        return maxvol;
+    }
+};
+```
