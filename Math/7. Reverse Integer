@@ -1,0 +1,38 @@
+## [7. Reverse Integer](https://leetcode.com/problems/reverse-integer/)
+Simple math logic to extract the last digit, and form reversed number 
+This code doesn't beat 100% but not bcoz of logic, but compilation time differences.
+```cpp
+class Solution {
+public:
+    int reverse(int x) {
+        int temp = x;
+        int result =0;
+        int digit;
+        while(temp!=0){
+            digit = temp-(temp/10)*10;
+            if ((result > INT_MAX / 10) || (result < INT_MIN / 10)) {
+                return 0; // Return 0 if reversing x would cause overflow/underflow
+            }
+            result = result*10 + digit;
+            temp = temp/10;
+        }
+        return result;
+    }
+};
+```
+
+Tweaked a few variables, removed a few lines of code (directly substituted) and got a code that 100%. Its the same logic
+```cpp
+class Solution {
+public:
+    int reverse(int x) {
+        int res=0;
+        while(x!=0){ 
+            if ((res > INT_MAX / 10) || (res < INT_MIN / 10))return 0;
+            res = res*10 + x-(x/10)*10;;
+            x = x/10;
+        }
+        return res;
+    }
+};
+```
