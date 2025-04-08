@@ -1,4 +1,4 @@
-# Index - Important Topics
+# Index - Important Tools
 
 
 | Topics| LeetCode | GitHub    |
