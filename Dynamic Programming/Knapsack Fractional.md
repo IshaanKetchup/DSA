@@ -1,4 +1,4 @@
-## 0/1 Knapsack
+## Fractional Knapsack
 Create custom class ItemValue which holds each item weight, value and cost
 Array of ItemValues, which is easy to sort descending using `Arrays.sort(items, (a,b) -> Double.compare(b.cost,a.cost))`
 
