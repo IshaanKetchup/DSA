@@ -337,3 +337,17 @@ class Main {
    
 }
 ```
+## Longest Increasing Subsequence of 2 Strings
+
+```java
+public static int LIS(int[] arr, int i, int prevInd){
+    if(i==arr.length) return 0;
+    
+    int notTake = LIS(arr, i+1, prevInd);
+    
+    int take = 0;
+    if(prevInd == -1 || arr[i]>arr[prevInd]) take = 1 + LIS(arr, i+1, i);
+    
+    return Math.max(take, notTake);
+}
+```
