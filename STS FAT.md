@@ -174,7 +174,9 @@ public static int[] calculateSpan(int[] arr){
 
 }
 ```
+
 ## Maximum Element in k-size sliding window - BRUTE FORCE
+```java
 public class Main {
     public static void printMaxInWindows(int[] arr, int k) {
         int n = arr.length;
@@ -195,3 +197,4 @@ public class Main {
         printMaxInWindows(arr, k);
     }
 }
+```
