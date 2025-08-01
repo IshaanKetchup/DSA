@@ -1,0 +1,26 @@
+## [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
+
+Recursive solution
+* If string length = 2*n is checking if the string length meets condition for n pairs of parenthesis. Note that this is NOT a check for validity. The code generates only valid combinations
+* If number of `open` parenthesis < `n` number of parenthesis (if you can open more), then do so
+* If number of `closed` parenthesis < number of `open` parenthesis (if you can close more), then do so
+
+
+```cpp
+class Solution {
+public:
+    void backtrack(string current, int open, int close, int n, vector<string>&result){
+        if(current.length()==2*n){
+            result.push_back(current);
+            return;
+        }
+        if(open<n) {backtrack(current+"(", open+1, close, n, result);}
+        if(close<open) {backtrack(current+")", open, close+1, n, result);}
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> result;
+        backtrack("", 0, 0, n, result);
+        return result;
+    }
+};
+```
