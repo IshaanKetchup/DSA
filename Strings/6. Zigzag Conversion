@@ -1,0 +1,133 @@
+#6: Zigzag Conversion
+
+## 1. Core Idea
+
+Instead of simulating the zigzag, we can calculate the original string indices belonging to each row.
+
+For `n` rows, one complete zigzag cycle has:
+
+- `n - 1` steps going down.
+- `n - 1` steps going back up.
+
+Therefore, the cycle length is:
+
+C = 2 * (n - 1)
+
+For example, with 4 rows:
+
+    Index:  0  1  2  3  4  5
+    Row:    0  1  2  3  2  1
+
+The next cycle starts at index 6.
+
+## 2. Finding the First Character
+
+Let:
+- `r` = current row.
+- `k` = cycle number, starting at 0.
+- `c` = cycle length.
+
+The first character belonging to row `r` in cycle `k` is:
+
+    i = k * c + r
+
+Why?
+
+Each cycle starts `c` positions after the previous one.
+
+For example, with 4 rows, `c = 6`.
+
+For row 2:
+
+    Cycle 0: 2
+    Cycle 1: 8
+    Cycle 2: 14
+
+These indices are calculated as:
+
+    0 * 6 + 2 = 2
+    1 * 6 + 2 = 8
+    2 * 6 + 2 = 14
+
+## 3. Finding the Second Character
+
+Middle rows also contain a character when travelling diagonally upwards.
+
+The second character's position within a cycle is:
+
+    c - r
+
+Therefore, its original string index is:
+
+    i = k * c + (c - r)
+
+For 4 rows, `c = 6`:
+
+Row 1:
+
+    First characters:  1, 7, 13
+    Second characters: 5, 11, 17
+
+Row 2:
+
+    First characters:  2, 8, 14
+    Second characters: 4, 10, 16
+
+The first and last rows only appear once per cycle.
+
+Therefore, we only calculate the second character when:
+
+    r != 0 and r != n - 1
+
+## 4. Complete Code
+
+    class Solution:
+        def convert(self, s: str, n: int) -> str:
+            if n <= 1:
+                return s
+
+            c = (n - 1) * 2
+            res = ''
+
+            for r in range(n):
+                for k in range((len(s) + c - 1) // c):
+
+                    # First character
+                    i = k * c + r
+
+                    if i >= len(s):
+                        break
+
+                    res += s[i]
+
+                    # Second character
+                    if r != 0 and r != n - 1:
+                        i = (c - r) + k * c
+
+                        if i >= len(s):
+                            break
+
+                        res += s[i]
+
+            return res
+
+## 5. Understanding the Inner Loop
+
+    range((len(s) + c - 1) // c)
+
+This calculates the number of cycles required to cover the string.
+
+It is equivalent to:
+
+    ceil(len(s) / c)
+
+We use integer ceiling division because the final cycle might be incomplete.
+
+The index bounds checks prevent accessing characters beyond the string length.
+
+## 6. Complexity
+
+- Time: O(n), where n is the length of the input string.
+- Space: O(n), for the resulting string.
+
+Note: Repeated string concatenation using `+=` can be inefficient in Python. Using a list with `.append()` followed by `''.join()` is more efficient.
